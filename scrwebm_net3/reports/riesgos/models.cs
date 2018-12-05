@@ -29,6 +29,7 @@ namespace scrwebm_net3.reports.riesgos
         public decimal comMasImp { get; set; }
         public decimal primaNeta { get; set; }
         public decimal corretaje { get; set; }
+        public decimal primaNetaFinal { get; set; }
 
         // aparentemente, un método como éste es necesario para que el report pueda 'ver' la clase como un datasource ... 
         public List<riesgoEmitido> get_RiesgosEmitidos()

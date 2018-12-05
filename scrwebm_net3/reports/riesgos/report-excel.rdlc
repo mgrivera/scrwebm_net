@@ -101,6 +101,10 @@
           <DataField>corretaje</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="primaNetaFinal">
+          <DataField>primaNetaFinal</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>scrwebm_net3.reports.riesgos</rd:DataSetName>

@@ -8,10 +8,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
     <title></title>
     <link href="~/css/general.css" rel="stylesheet" type="text/css" />
-    <style>
+    <style type="text/css">
         html,body,form,#div1 {
             height: 100%; 
         }
+        /*#ReportViewer1 { 
+            overflow: auto; 
+        }*/
     </style>
 </head>
 

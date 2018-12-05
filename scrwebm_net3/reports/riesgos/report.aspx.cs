@@ -89,6 +89,7 @@ namespace scrwebm_net3.reports.riesgos
 
             string nombreEmpresaSeleccionada = "";
             string subTituloReporte = "";
+            string tipoReporte = "original"; 
             bool? mostrarColores = false;
             bool? formatoExcel = false;
 
@@ -98,6 +99,7 @@ namespace scrwebm_net3.reports.riesgos
                 nombreEmpresaSeleccionada = config["compania"]["nombre"].AsString;
 
                 subTituloReporte = opcionesReporte["subTitulo"].AsString;
+                tipoReporte = opcionesReporte["tipoReporte"].AsString;
 
                 mostrarColores = opcionesReporte.GetValue("mostrarColores", false).ToBoolean();
                 formatoExcel = opcionesReporte.GetValue("formatoExcel", false).ToBoolean();
@@ -163,7 +165,8 @@ namespace scrwebm_net3.reports.riesgos
                     primaBruta = primaBruta2,
                     comMasImp = comMasImp2,
                     primaNeta = primaNeta2,
-                    corretaje = corretaje2
+                    corretaje = corretaje2, 
+                    primaNetaFinal = primaNeta2 - corretaje2
                 };
 
                 // si los valores son diferentes a null, los convertimos a 
@@ -181,15 +184,31 @@ namespace scrwebm_net3.reports.riesgos
                 return false;
             }
 
-
-            if (formatoExcel.HasValue && formatoExcel.Value)
+            if (tipoReporte == "original")
             {
-                // la idea de este formato es que el usuario pueda convertir el report a Excel y los rows queden bastante adecuados ... 
-                ReportViewer1.LocalReport.ReportPath = "reports/riesgos/report-excel.rdlc";
-            } else
-            {
-                ReportViewer1.LocalReport.ReportPath = "reports/riesgos/report.rdlc";
+                if (formatoExcel.HasValue && formatoExcel.Value)
+                {
+                    // la idea de este formato es que el usuario pueda convertir el report a Excel y los rows queden bastante adecuados ... 
+                    ReportViewer1.LocalReport.ReportPath = "reports/riesgos/report-excel.rdlc";
+                }
+                else
+                {
+                    ReportViewer1.LocalReport.ReportPath = "reports/riesgos/report.rdlc";
+                }
             }
+            else
+            {
+                if (formatoExcel.HasValue && formatoExcel.Value)
+                {
+                    // la idea de este formato es que el usuario pueda convertir el report a Excel y los rows queden bastante adecuados ... 
+                    ReportViewer1.LocalReport.ReportPath = "reports/riesgos/report-masSumaAsegurada-excel.rdlc";
+                }
+                else
+                {
+                    ReportViewer1.LocalReport.ReportPath = "reports/riesgos/report-masSumaAsegurada.rdlc";
+                }
+            }
+            
             
 
             ReportDataSource myReportDataSource = new ReportDataSource();
