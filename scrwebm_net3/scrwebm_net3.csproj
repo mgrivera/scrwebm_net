@@ -180,6 +180,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\arssa prc deploy settings .pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="reports\cierre\report.aspx" />
     <Content Include="reports\consultas\corretaje\report.aspx" />

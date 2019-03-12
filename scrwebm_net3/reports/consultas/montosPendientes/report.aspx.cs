@@ -30,10 +30,11 @@ namespace scrwebm_net3.reports.consultas.montosPendientes
                 string report = Request.QueryString["report"].ToString();
 
                 // ----------------------------------------------------------------------------------------------
-                // establecemos una conexión a mongodb; específicamente, a la base de datos del programa contabM; 
+                // establecemos una conexión a mongodb ... 
+                string scrwebm_mongodb_connection = System.Web.Configuration.WebConfigurationManager.AppSettings["scrwebm_mongodb_connectionString"];
                 string scrwebm_mongodb_name = System.Web.Configuration.WebConfigurationManager.AppSettings["scrwebm_mongodb_name"];
 
-                var client = new MongoClient("mongodb://localhost:27017");
+                var client = new MongoClient(scrwebm_mongodb_connection);
                 var database = client.GetDatabase(scrwebm_mongodb_name);
 
                 try
