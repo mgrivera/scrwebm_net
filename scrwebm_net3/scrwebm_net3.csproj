@@ -188,6 +188,7 @@
     <Content Include="reports\consultas\montosPendientesCobroVencimientos\report.aspx" />
     <Content Include="reports\consultas\montosPendientesPagoVencimientos\report.aspx" />
     <Content Include="reports\consultas\montosPendientes\report.aspx" />
+    <Content Include="reports\remesas\report.aspx" />
     <Content Include="reports\riesgos\report.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -315,6 +316,14 @@
     <Compile Include="reports\consultas\montosPendientes\report.aspx.designer.cs">
       <DependentUpon>report.aspx</DependentUpon>
     </Compile>
+    <Compile Include="reports\remesas\models.cs" />
+    <Compile Include="reports\remesas\report.aspx.cs">
+      <DependentUpon>report.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="reports\remesas\report.aspx.designer.cs">
+      <DependentUpon>report.aspx</DependentUpon>
+    </Compile>
     <Compile Include="reports\riesgos\models.cs" />
     <Compile Include="reports\riesgos\report.aspx.cs">
       <DependentUpon>report.aspx</DependentUpon>
@@ -360,22 +369,23 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="reports\cierre\report_cuentasCorrientes.rdlc" />
-    <EmbeddedResource Include="reports\cierre\report.rdlc" />
-    <EmbeddedResource Include="reports\consultas\corretaje\report-excel.rdlc" />
-    <EmbeddedResource Include="reports\consultas\corretaje\report.rdlc" />
-    <EmbeddedResource Include="reports\consultas\cumulos\report-excel.rdlc" />
-    <EmbeddedResource Include="reports\consultas\cumulos\report.rdlc" />
-    <EmbeddedResource Include="reports\consultas\montosPendientesCobroVencimientos\report-excel.rdlc" />
-    <EmbeddedResource Include="reports\consultas\montosPendientesCobroVencimientos\report.rdlc" />
-    <EmbeddedResource Include="reports\consultas\montosPendientesPagoVencimientos\report-excel.rdlc" />
-    <EmbeddedResource Include="reports\consultas\montosPendientesPagoVencimientos\report.rdlc" />
-    <EmbeddedResource Include="reports\consultas\montosPendientes\report-excel.rdlc" />
-    <EmbeddedResource Include="reports\consultas\montosPendientes\report.rdlc" />
-    <EmbeddedResource Include="reports\riesgos\report-masSumaAsegurada-excel.rdlc" />
-    <EmbeddedResource Include="reports\riesgos\report-masSumaAsegurada.rdlc" />
-    <EmbeddedResource Include="reports\riesgos\report-excel.rdlc" />
-    <EmbeddedResource Include="reports\riesgos\report.rdlc" />
+    <Content Include="reports\cierre\report_cuentasCorrientes.rdlc" />
+    <Content Include="reports\cierre\report.rdlc" />
+    <Content Include="reports\consultas\corretaje\report-excel.rdlc" />
+    <Content Include="reports\consultas\corretaje\report.rdlc" />
+    <Content Include="reports\consultas\cumulos\report-excel.rdlc" />
+    <Content Include="reports\consultas\cumulos\report.rdlc" />
+    <Content Include="reports\consultas\montosPendientesCobroVencimientos\report-excel.rdlc" />
+    <Content Include="reports\consultas\montosPendientesCobroVencimientos\report.rdlc" />
+    <Content Include="reports\consultas\montosPendientesPagoVencimientos\report-excel.rdlc" />
+    <Content Include="reports\consultas\montosPendientesPagoVencimientos\report.rdlc" />
+    <Content Include="reports\consultas\montosPendientes\report-excel.rdlc" />
+    <Content Include="reports\consultas\montosPendientes\report.rdlc" />
+    <Content Include="reports\remesas\report.rdlc" />
+    <Content Include="reports\riesgos\report-masSumaAsegurada-excel.rdlc" />
+    <Content Include="reports\riesgos\report-masSumaAsegurada.rdlc" />
+    <Content Include="reports\riesgos\report-excel.rdlc" />
+    <Content Include="reports\riesgos\report.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
