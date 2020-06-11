@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DnsClient, Version=1.0.7.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.0.7\lib\net45\DnsClient.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -74,14 +77,17 @@
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Bson.2.4.4\lib\net45\MongoDB.Bson.dll</HintPath>
+    <Reference Include="MongoDB.Bson, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.7.0\lib\net45\MongoDB.Bson.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Driver.2.4.4\lib\net45\MongoDB.Driver.dll</HintPath>
+    <Reference Include="MongoDB.Driver, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.7.0\lib\net45\MongoDB.Driver.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver.Core, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Driver.Core.2.4.4\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    <Reference Include="MongoDB.Driver.Core, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.7.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.3.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
@@ -180,7 +186,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Properties\PublishProfiles\arssa prc deploy settings .pubxml" />
+    <None Include="Properties\PublishProfiles\scrwebm-net-arsaprc.pubxml" />
+    <None Include="Properties\PublishProfiles\scrwebm-net-lockton.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="reports\cierre\report.aspx" />
     <Content Include="reports\consultas\corretaje\report.aspx" />
@@ -188,6 +195,7 @@
     <Content Include="reports\consultas\montosPendientesCobroVencimientos\report.aspx" />
     <Content Include="reports\consultas\montosPendientesPagoVencimientos\report.aspx" />
     <Content Include="reports\consultas\montosPendientes\report.aspx" />
+    <Content Include="reports\primasEmitidas\facultativo\reaseguradores\report.aspx" />
     <Content Include="reports\remesas\report.aspx" />
     <Content Include="reports\riesgos\report.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -233,12 +241,23 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
     <Content Include="webAppSettings.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="webAppSettings.config.arsa.local">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="webAppSettings.config.arsaprc">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="webAppSettings.config.lockton">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -316,6 +335,14 @@
     <Compile Include="reports\consultas\montosPendientes\report.aspx.designer.cs">
       <DependentUpon>report.aspx</DependentUpon>
     </Compile>
+    <Compile Include="reports\primasEmitidas\facultativo\reaseguradores\models.cs" />
+    <Compile Include="reports\primasEmitidas\facultativo\reaseguradores\report.aspx.cs">
+      <DependentUpon>report.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="reports\primasEmitidas\facultativo\reaseguradores\report.aspx.designer.cs">
+      <DependentUpon>report.aspx</DependentUpon>
+    </Compile>
     <Compile Include="reports\remesas\models.cs" />
     <Compile Include="reports\remesas\report.aspx.cs">
       <DependentUpon>report.aspx</DependentUpon>
@@ -373,7 +400,6 @@
     <Content Include="reports\cierre\report.rdlc" />
     <Content Include="reports\consultas\corretaje\report-excel.rdlc" />
     <Content Include="reports\consultas\corretaje\report.rdlc" />
-    <Content Include="reports\consultas\cumulos\report-excel.rdlc" />
     <Content Include="reports\consultas\cumulos\report.rdlc" />
     <Content Include="reports\consultas\montosPendientesCobroVencimientos\report-excel.rdlc" />
     <Content Include="reports\consultas\montosPendientesCobroVencimientos\report.rdlc" />
@@ -386,6 +412,15 @@
     <Content Include="reports\riesgos\report-masSumaAsegurada.rdlc" />
     <Content Include="reports\riesgos\report-excel.rdlc" />
     <Content Include="reports\riesgos\report.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="reports\primasEmitidas\facultativo\reaseguradores\report.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="reports\primasEmitidas\facultativo\reaseguradores\report-excel.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="reports\consultas\cumulos\report-excel.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

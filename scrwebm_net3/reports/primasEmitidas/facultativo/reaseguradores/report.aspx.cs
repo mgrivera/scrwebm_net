@@ -1,14 +1,15 @@
-﻿using Microsoft.Reporting.WebForms;
-using MongoDB.Bson;
-using MongoDB.Driver;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using MongoDB.Driver;
+using MongoDB.Bson;
+using Microsoft.Reporting.WebForms;
 
-namespace scrwebm_net3.reports.consultas.cumulos
+namespace scrwebm_net3.reports.primasEmitidas.facultativo.reaseguradores
 {
     public partial class report : System.Web.UI.Page
     {
@@ -48,19 +49,18 @@ namespace scrwebm_net3.reports.consultas.cumulos
                 }
                 catch (Exception ex)
                 {
-                    errorMessage = "Error al intentar establecer una conexión a la base de datos (mongo), de nombre: '" + 
-                                   database.DatabaseNamespace.DatabaseName + "'.<br /> El mensaje de error es: " + ex.Message;
+                    errorMessage = "Error al intentar establecer una conexión a la base de datos (mongo) de 'scrwebm'; el mensaje de error es: " + ex.Message;
                     ErrMessage_Cell.InnerHtml = errorMessage;
                     return;
                 }
 
                 switch (report)
                 {
-                    case "cumulos":
+                    case "primasEmitidasReaseguradores":
                         {
                             errorMessage = "";
 
-                            if (!cumulos_consulta_report(database, userID, out errorMessage))
+                            if (!primasEmitidas_reaseguradores_report(database, userID, out errorMessage))
                             {
                                 errorMessage = "Error: ha ocurrido un error al intentar obtener el reporte: " + errorMessage;
                                 ErrMessage_Cell.InnerHtml = errorMessage;
@@ -78,73 +78,92 @@ namespace scrwebm_net3.reports.consultas.cumulos
             }
         }
 
-        private bool cumulos_consulta_report(IMongoDatabase database, string userID, out string errorMessage)
+
+
+
+
+
+
+
+        private bool primasEmitidas_reaseguradores_report(IMongoDatabase database, string userID, out string errorMessage)
         {
             errorMessage = "";
- 
-            var collection = database.GetCollection<cumulo_item>("temp_consulta_cumulos");
-            var collection_config = database.GetCollection<cumulos_config>("temp_consulta_cumulos_config");
+
+            var collection = database.GetCollection<riesgoEmitido>("temp_consulta_riesgosEmitidosReaseguradores");
+            var collection_config = database.GetCollection<riesgoEmitido_config>("temp_consulta_riesgosEmitidosReaseguradores_config");
 
             var config = collection_config.AsQueryable().Where(c => c.user == userID).FirstOrDefault();
 
-            if (config == null)
+            if (config == null) 
             {
                 errorMessage = "Error: se ha producido un error al intentar leer la 'configuración' para la ejecución del reporte, " +
                                "en la tabla específica que debe existir para ello. Por favor revise.<br />" +
-                               "Aparentemente, no existe un registro de configuración para este reporte en la baee de datos.";
+                               "Aparentemente, no existe un registro de configuración para este reporte en la baee de datos."; 
                 return false;
             }
 
-            var cumulos = collection.AsQueryable().Where(r => r.user == userID).ToList();
 
-            if (cumulos.Count() == 0)
+            var primasEmitidas = collection.AsQueryable().Where(r => r.user == userID).ToList(); 
+
+            if (primasEmitidas.Count() == 0)
             {
-                errorMessage = "No existe información para mostrar el reporte que Ud. ha requerido. <br /><br /> Probablemente Ud. no ha aplicado un " +
+                errorMessage = "No existe información para mostrar el reporte " +
+                    "que Ud. ha requerido. <br /><br /> Probablemente Ud. no ha aplicado un " +
                     "filtro y seleccionado información aún.";
                 return false;
             }
 
-            List<cumulo_report> report_list = new List<cumulo_report>(); 
+            List<riesgoEmitido_report> report_list = new List<riesgoEmitido_report>(); 
 
-            foreach (var item in cumulos)
+            foreach (var item in primasEmitidas)
             {
-                cumulo_report report_item = new cumulo_report()
+                riesgoEmitido_report report_item = new riesgoEmitido_report()
                 {
-                    tipoCumulo = item.tiposCumulo.descripcion,
-                    tipoCumuloAbreviatura = item.tiposCumulo.abreviatura, 
-                    moneda = item.monedas.descripcion, 
-                    monedaSimbolo = item.monedas.simbolo, 
-                    compania = item.companias.nombre, 
-                    companiaAbreviatura = item.companias.abreviatura, 
-                    ramo = item.ramos.descripcion, 
-                    ramoAbreviatura = item.ramos.abreviatura, 
-                    zona = item.tiposCumulo.zonas.descripcion, 
-                    zonaAbreviatura = item.tiposCumulo.zonas.abreviatura, 
-                    origen = item.cumulos.origen, 
-                    numero = item.numero, 
+                    numero = item.numero,
+                    moneda = item.moneda.descripcion,
+                    monedaSimbolo = item.moneda.simbolo, 
+                    cedente = item.cedente.abreviatura,
+                    compania = item.compania.nombre,
+                    companiaAbreviatura = item.compania.abreviatura, 
+                    ramo = item.ramo.descripcion,
+                    ramoAbreviatura = item.ramo.abreviatura, 
+                    asegurado = item.asegurado.abreviatura,
+                    estado = item.estado,
+                    movimiento = item.movimiento,
+                    fechaEmision = item.fechaEmision,
+                    desde = item.desde,
+                    hasta = item.hasta,
 
-                    valorARiesgo = item.cumulos.valorARiesgo, 
-                    sumaAsegurada = item.cumulos.sumaAsegurada, 
-                    montoAceptado = item.cumulos.montoAceptado, 
-                    cesionCuotaParte = item.cumulos.cesionCuotaParte, 
-                    cesionExcedente = item.cumulos.cesionExcedente, 
-                    cesionFacultativo = item.cumulos.cesionFacultativo, 
-                    cumulo = item.cumulos.cumulo, 
+                    valorARiesgo = item.valorARiesgo,
+                    sumaAsegurada = item.sumaAsegurada,
+                    prima = item.prima,
+                    ordenPorc = item.ordenPorc,
+                    sumaReasegurada = item.sumaReasegurada,
+                    primaBruta = item.primaBruta,
+                    comision = item.comision,
+                    impuesto = item.impuesto,
+                    corretaje = item.corretaje,
+                    impuestoSobrePN = item.impuestoSobrePN,
+                    primaNeta = item.primaNeta
                 };
 
-                report_list.Add(report_item);
+                decimal costos = report_item.comision + report_item.impuestoSobrePN + report_item.impuesto + report_item.corretaje;
+                report_item.totalCostos = costos; 
+
+                report_list.Add(report_item); 
             }
+
 
             if (config.opcionesReporte.formatoExcel)
             {
                 // la idea de este formato es que el usuario pueda convertir el report a Excel y los rows queden bastante adecuados ... 
-                ReportViewer1.LocalReport.ReportPath = "reports/consultas/cumulos/report-excel.rdlc";
+                ReportViewer1.LocalReport.ReportPath = "reports/primasEmitidas/facultativo/reaseguradores/report-excel.rdlc";
             }
             else
             {
-                ReportViewer1.LocalReport.ReportPath = "reports/consultas/cumulos/report.rdlc";
+                ReportViewer1.LocalReport.ReportPath = "reports/primasEmitidas/facultativo/reaseguradores/report.rdlc";
             }
-
+ 
             ReportDataSource myReportDataSource = new ReportDataSource();
 
             myReportDataSource.Name = "DataSet1";
@@ -155,9 +174,7 @@ namespace scrwebm_net3.reports.consultas.cumulos
             ReportParameter[] MyReportParameters = {
                                                        new ReportParameter("nombreEmpresaSeleccionada", config.compania.nombre),
                                                        new ReportParameter("subTituloReporte", config.opcionesReporte.subTitulo),
-                                                       new ReportParameter("mostrarColores", config.opcionesReporte.mostrarColores.ToString()),
-                                                       // el reporte se puede obtener solo para un tipo de cúmulo ... 
-                                                       new ReportParameter("tipoCumulo", report_list.First().tipoCumulo)
+                                                       new ReportParameter("mostrarColores", config.opcionesReporte.mostrarColores.ToString())
                                                    };
 
             ReportViewer1.LocalReport.SetParameters(MyReportParameters);

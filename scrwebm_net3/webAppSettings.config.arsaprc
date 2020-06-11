@@ -1,0 +1,33 @@
+﻿<!--
+  settings para tener el acceso a la base de datos mongo 
+  Nota: la base de datos mongo, cuando no en el pc para pruebas, está alojada en mongodb atlas ... 
+  -->
+
+<!--
+  previous mongodb connection - saved it here just for backup: 
+  mongodb://scrwebm_user:isabel@cluster0-shard-00-00-lwzxe.mongodb.net:27017,cluster0-shard-00-01-lwzxe.mongodb.net:27017,cluster0-shard-00-02-lwzxe.mongodb.net:27017/scrwebm_arsa?ssl=true&amp;replicaSet=Cluster0-shard-0&amp;authSource=admin&amp;retryWrites=true
+  mongodb://scrwebm_admin:isabel@cluster0-shard-00-00-lwzxe.mongodb.net:27017,cluster0-shard-00-01-lwzxe.mongodb.net:27017,cluster0-shard-00-02-lwzxe.mongodb.net:27017/test?ssl=true&amp;replicaSet=Cluster0-shard-0&amp;authSource=admin&amp;retryWrites=true
+  -->
+
+<!-- 
+settings: arsa en smarterAspNet 
+<appSettings>
+  <add key="scrwebm_mongodb_connectionString"
+       value="mongodb://scrwebm_admin:isabel@cluster0-shard-00-00-lwzxe.mongodb.net:27017,cluster0-shard-00-01-lwzxe.mongodb.net:27017,cluster0-shard-00-02-lwzxe.mongodb.net:27017/test?ssl=true&amp;replicaSet=Cluster0-shard-0&amp;authSource=admin&amp;retryWrites=true" />
+  <add key="scrwebm_mongodb_name" value="scrwebm_arsa" />
+</appSettings>
+ -->
+
+<!--
+settings: arsa en localhost  
+<appSettings>
+  <add key="scrwebm_mongodb_connectionString" value="mongodb://localhost:27017/scrwebm_arsa" />
+  <add key="scrwebm_mongodb_name" value="scrwebm_arsa" />
+</appSettings>
+-->
+
+<appSettings>
+  <add key="scrwebm_mongodb_connectionString"
+       value="mongodb://scrwebm_admin:isabel@cluster0-shard-00-00-lwzxe.mongodb.net:27017,cluster0-shard-00-01-lwzxe.mongodb.net:27017,cluster0-shard-00-02-lwzxe.mongodb.net:27017/test?ssl=true&amp;replicaSet=Cluster0-shard-0&amp;authSource=admin&amp;retryWrites=true" />
+  <add key="scrwebm_mongodb_name" value="scrwebm_arsa" />
+</appSettings>

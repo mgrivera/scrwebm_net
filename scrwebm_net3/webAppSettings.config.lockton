@@ -1,0 +1,10 @@
+﻿<!--
+  settings para tener el acceso a la base de datos mongo 
+  Nota: la base de datos mongo, cuando no en el pc para pruebas, está alojada en mongodb atlas ... 
+  -->
+
+<appSettings>
+  <add key="scrwebm_mongodb_connectionString"
+       value="mongodb://contabm_user:locktonve01@cluster0-shard-00-00-8jpsb.mongodb.net:27017,cluster0-shard-00-01-8jpsb.mongodb.net:27017,cluster0-shard-00-02-8jpsb.mongodb.net:27017/test?ssl=true&amp;replicaSet=Cluster0-shard-0&amp;authSource=admin&amp;retryWrites=true" />
+      <add key="scrwebm_mongodb_name" value="scrwebm_lockton" />
+</appSettings>
