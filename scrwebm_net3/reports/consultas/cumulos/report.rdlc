@@ -72,6 +72,14 @@
           <DataField>numero</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="desde">
+          <DataField>desde</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="hasta">
+          <DataField>hasta</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
         <Field Name="valorARiesgo">
           <DataField>valorARiesgo</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
@@ -80,24 +88,52 @@
           <DataField>sumaAsegurada</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="primaSeguro">
+          <DataField>primaSeguro</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
         <Field Name="montoAceptado">
           <DataField>montoAceptado</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="primaAceptada">
+          <DataField>primaAceptada</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="cesionCuotaParte">
           <DataField>cesionCuotaParte</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="primaCesionCuotaParte">
+          <DataField>primaCesionCuotaParte</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
         <Field Name="cesionExcedente">
           <DataField>cesionExcedente</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="primaCesionExcedente">
+          <DataField>primaCesionExcedente</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="cesionFacultativo">
           <DataField>cesionFacultativo</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="primaCesionFacultativo">
+          <DataField>primaCesionFacultativo</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
         <Field Name="cumulo">
           <DataField>cumulo</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="primaCumulo">
+          <DataField>primaCumulo</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="montoCedido">
+          <DataField>montoCedido</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>
@@ -1325,7 +1361,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>

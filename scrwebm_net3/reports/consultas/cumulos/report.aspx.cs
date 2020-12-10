@@ -123,13 +123,28 @@ namespace scrwebm_net3.reports.consultas.cumulos
                     origen = item.cumulos.origen, 
                     numero = item.numero, 
 
-                    valorARiesgo = item.cumulos.valorARiesgo, 
-                    sumaAsegurada = item.cumulos.sumaAsegurada, 
-                    montoAceptado = item.cumulos.montoAceptado, 
-                    cesionCuotaParte = item.cumulos.cesionCuotaParte, 
-                    cesionExcedente = item.cumulos.cesionExcedente, 
-                    cesionFacultativo = item.cumulos.cesionFacultativo, 
-                    cumulo = item.cumulos.cumulo, 
+                    desde = item.cumulos.desde, 
+                    hasta = item.cumulos.hasta,
+
+                    valorARiesgo = item.cumulos.valorARiesgo,
+                    sumaAsegurada = item.cumulos.sumaAsegurada,
+                    primaSeguro = item.cumulos.primaSeguro,
+
+                    montoAceptado = item.cumulos.montoAceptado,
+                    primaAceptada = item.cumulos.primaAceptada,
+
+                    cesionCuotaParte = item.cumulos.cesionCuotaParte,
+                    primaCesionCuotaParte = item.cumulos.primaCesionCuotaParte,
+
+                    cesionExcedente = item.cumulos.cesionExcedente,
+                    primaCesionExcedente = item.cumulos.primaCesionExcedente,
+
+                    cesionFacultativo = item.cumulos.cesionFacultativo,
+                    primaCesionFacultativo = item.cumulos.primaCesionFacultativo,
+
+                    cumulo = item.cumulos.cumulo,
+                    primaCumulo = item.cumulos.primaCumulo,
+                    montoCedido = item.cumulos.montoCedido,
                 };
 
                 report_list.Add(report_item);

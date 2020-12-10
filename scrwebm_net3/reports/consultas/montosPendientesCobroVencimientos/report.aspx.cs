@@ -93,6 +93,7 @@ namespace scrwebm_net3.reports.consultas.montosPendientesCobroVencimientos
             string subTituloReporte = "";
             bool? mostrarColores = false;
             bool? formatoExcel = false;
+            bool? resumen = false; 
 
             DateTime fechaPendientesAl;                 // en base a esta fecha se calculan los vencimientos 
             DateTime fechaLeerHasta;                    // los montos (ie: cuotas) se leen hasta esa fecha 
@@ -106,6 +107,7 @@ namespace scrwebm_net3.reports.consultas.montosPendientesCobroVencimientos
 
                 mostrarColores = opcionesReporte.GetValue("mostrarColores", false).ToBoolean();
                 formatoExcel = opcionesReporte.GetValue("formatoExcel", false).ToBoolean();
+                resumen = opcionesReporte.GetValue("resumen", false).ToBoolean(); 
 
                 fechaPendientesAl = Convert.ToDateTime(opcionesReporte.GetValue("fechaPendientesAl", new DateTime()));   
                 fechaLeerHasta = Convert.ToDateTime(opcionesReporte.GetValue("fechaLeerHasta", new DateTime()));
@@ -232,6 +234,7 @@ namespace scrwebm_net3.reports.consultas.montosPendientesCobroVencimientos
                                                        new ReportParameter("nombreEmpresaSeleccionada", nombreEmpresaSeleccionada),
                                                        new ReportParameter("subTituloReporte", subTituloReporte),
                                                        new ReportParameter("mostrarColores", mostrarColores.ToString()),
+                                                       new ReportParameter("resumen", resumen.ToString()),
                                                        new ReportParameter("fechaPendientesAl", fechaPendientesAl.ToString("dd-MMM-yy")), 
                                                        new ReportParameter("fechaLeerHasta", fechaLeerHasta.ToString("dd-MMM-yy"))
                                                    };

@@ -93,6 +93,7 @@ namespace scrwebm_net3.reports.consultas.montosPendientes
             string subTituloReporte = "";
             bool? mostrarColores = false;
             bool? formatoExcel = false;
+            bool? resumen = false; 
 
             try
             {
@@ -100,9 +101,9 @@ namespace scrwebm_net3.reports.consultas.montosPendientes
                 nombreEmpresaSeleccionada = config["compania"]["nombre"].AsString;
 
                 subTituloReporte = opcionesReporte.GetValue("subTitulo", "").ToString();
-
                 mostrarColores = opcionesReporte.GetValue("mostrarColores", false).ToBoolean();
                 formatoExcel = opcionesReporte.GetValue("formatoExcel", false).ToBoolean();
+                resumen = opcionesReporte.GetValue("resumen", false).ToBoolean();
             }
             catch (Exception ex)
             {
@@ -185,7 +186,8 @@ namespace scrwebm_net3.reports.consultas.montosPendientes
             ReportParameter[] MyReportParameters = {
                                                        new ReportParameter("nombreEmpresaSeleccionada", nombreEmpresaSeleccionada),
                                                        new ReportParameter("subTituloReporte", subTituloReporte),
-                                                       new ReportParameter("mostrarColores", mostrarColores.ToString())
+                                                       new ReportParameter("mostrarColores", mostrarColores.ToString()),
+                                                       new ReportParameter("resumen", resumen.ToString()),
                                                    };
 
             ReportViewer1.LocalReport.SetParameters(MyReportParameters);

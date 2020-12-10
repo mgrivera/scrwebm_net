@@ -12,8 +12,6 @@ namespace scrwebm_net3.reports.consultas.cumulos
         public ObjectId _id { get; set; }
         public DateTime fechaEmision { get; set; }
         public string cia { get; set; }
-        public DateTime desde { get; set; }
-        public DateTime hasta { get; set; }
         public string compania { get; set; }
         public string ramo { get; set; }
         public string entityId { get; set; }
@@ -60,6 +58,8 @@ namespace scrwebm_net3.reports.consultas.cumulos
         public string origen { get; set; }
         public string tipoCumulo { get; set; }
         public string zona { get; set; }
+        public DateTime desde { get; set; }
+        public DateTime hasta { get; set; }
 
         [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
         public decimal valorARiesgo { get; set; }
@@ -68,19 +68,37 @@ namespace scrwebm_net3.reports.consultas.cumulos
         public decimal sumaAsegurada { get; set; }
 
         [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
+        public decimal primaSeguro { get; set; }
+
+        [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
         public decimal montoAceptado { get; set; }
+
+        [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
+        public decimal primaAceptada { get; set; }
 
         [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
         public decimal cesionCuotaParte { get; set; }
 
         [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
+        public decimal primaCesionCuotaParte { get; set; }
+
+        [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
         public decimal cesionExcedente { get; set; }
+
+        [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
+        public decimal primaCesionExcedente { get; set; }
 
         [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
         public decimal cesionFacultativo { get; set; }
 
         [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
+        public decimal primaCesionFacultativo { get; set; }
+
+        [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
         public decimal cumulo { get; set; }
+
+        [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
+        public decimal primaCumulo { get; set; }
 
         [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
         public decimal montoCedido { get; set; }
@@ -142,14 +160,24 @@ namespace scrwebm_net3.reports.consultas.cumulos
         public string origen { get; set; }
         public string numero { get; set; }
 
+        public DateTime desde { get; set; }
+        public DateTime hasta { get; set; }
+
         public decimal valorARiesgo { get; set; }
         public decimal sumaAsegurada { get; set; }
+        public decimal primaSeguro { get; set; }
         public decimal montoAceptado { get; set; }
+        public decimal primaAceptada { get; set; }
         public decimal cesionCuotaParte { get; set; }
+        public decimal primaCesionCuotaParte { get; set; }
         public decimal cesionExcedente { get; set; }
+        public decimal primaCesionExcedente { get; set; }
         public decimal cesionFacultativo { get; set; }
+        public decimal primaCesionFacultativo { get; set; }
         public decimal cumulo { get; set; }
-        
+        public decimal primaCumulo { get; set; }
+        public decimal montoCedido { get; set; }
+
         // aparentemente, un método como éste, en la clase, es necesario para que el report pueda 'ver' la clase como un datasource ... 
         public List<cumulo_report> get_cumulos_report()
         {

@@ -82,33 +82,38 @@ namespace scrwebm_net3.reports.consultas.montosPendientesPagoVencimientos
         {
             errorMessage = "";
 
-            var collection = database.GetCollection<BsonDocument>("consulta_MontosPendientesPago_Vencimientos");
-            var collection_config = database.GetCollection<BsonDocument>("consulta_MontosPendientesPago_Vencimientos_config");
+            // var collection = database.GetCollection<TDocument>(“collection_name”).AsQueryable();
 
-            var filter = Builders<BsonDocument>.Filter.Eq("user", userID);
+            var collection = database.GetCollection<montoPendientePago_item>("consulta_MontosPendientesPago_Vencimientos").AsQueryable(); 
+            var collection_config = database.GetCollection<config_item>("consulta_MontosPendientesPago_Vencimientos_config").AsQueryable();
 
-            var config = collection_config.Find(filter).FirstOrDefault();
+            var config = collection_config.Where(x => x.user == userID).Select(x => x).FirstOrDefault(); 
+
+            // var config = collection_config.Find(filter).FirstOrDefault();
 
             string nombreEmpresaSeleccionada = "";
             string subTituloReporte = "";
             bool? mostrarColores = false;
             bool? formatoExcel = false;
+            bool? resumen = false; 
 
             DateTime fechaPendientesAl;                 // en base a esta fecha se calculan los vencimientos 
             DateTime fechaLeerHasta;                    // los montos (ie: cuotas) se leen hasta esa fecha 
 
             try
             {
-                var opcionesReporte = config["opcionesReporte"].AsBsonDocument;
-                nombreEmpresaSeleccionada = config["compania"]["nombre"].AsString;
+                var opcionesReporte = config.opcionesReporte;
 
-                subTituloReporte = opcionesReporte.GetValue("subTitulo", "").ToString();
+                nombreEmpresaSeleccionada = config.compania.nombre; 
 
-                mostrarColores = opcionesReporte.GetValue("mostrarColores", false).ToBoolean();
-                formatoExcel = opcionesReporte.GetValue("formatoExcel", false).ToBoolean();
+                subTituloReporte = opcionesReporte.subTitulo; 
 
-                fechaPendientesAl = Convert.ToDateTime(opcionesReporte.GetValue("fechaPendientesAl", new DateTime()));   
-                fechaLeerHasta = Convert.ToDateTime(opcionesReporte.GetValue("fechaLeerHasta", new DateTime()));
+                mostrarColores = opcionesReporte.mostrarColores;
+                formatoExcel = opcionesReporte.formatoExcel;
+                resumen = opcionesReporte.resumen;
+
+                fechaPendientesAl = opcionesReporte.fechaPendientesAl;
+                fechaLeerHasta = opcionesReporte.fechaLeerHasta; 
             }
             catch (Exception ex)
             {
@@ -121,48 +126,44 @@ namespace scrwebm_net3.reports.consultas.montosPendientesPagoVencimientos
             }
 
 
-            var cursor = collection.Find(filter).ToCursor();
+            var items = collection.Where(x => x.user == userID).Select(x => x); 
             int cantidadRegistros = 0;
 
-            List<montoPendientePago_item> reportItems = new List<montoPendientePago_item>();
-            montoPendientePago_item reportItem;
+            List<montoPendientePago_reportItem> reportItems = new List<montoPendientePago_reportItem>();
+            montoPendientePago_reportItem reportItem;
 
-            foreach (BsonDocument document in cursor.ToEnumerable())
+            foreach (var document in items)
             {
-                // las fechas pueden venir en nulls ... revisamos antes de intentar convertirlas ... 
-                DateTime? fecha = null;
-                DateTime? fechaEmision = null;
-                DateTime? fechaVencimiento = null;
-
-                if (!document["fecha"].IsBsonNull) { fecha = Convert.ToDateTime(document["fecha"]); }; 
-                if (!document["fechaEmision"].IsBsonNull) { fechaEmision = Convert.ToDateTime(document["fechaEmision"]); };
-                if (!document["fechaVencimiento"].IsBsonNull) { fechaVencimiento = Convert.ToDateTime(document["fechaVencimiento"]); };
-
-                reportItem = new montoPendientePago_item
+                reportItem = new montoPendientePago_reportItem
                 {
-                    monedaDescripcion = document["monedaDescripcion"].AsString,
-                    monedaSimbolo = document["monedaSimbolo"].AsString,
-                    companiaNombre = document["companiaNombre"].AsString,
-                    companiaAbreviatura = document["companiaAbreviatura"].AsString,
-                    aseguradoAbreviatura = document["aseguradoAbreviatura"].AsString,
-                    suscriptorAbreviatura = document["suscriptorAbreviatura"].AsString,
+                    monedaDescripcion = document.monedaDescripcion,
+                    monedaSimbolo = document.monedaSimbolo,
+                    companiaNombre = document.companiaNombre,
+                    companiaAbreviatura = document.companiaAbreviatura,
+                    cedenteNombre = document.cedenteNombre,
+                    cedenteAbreviatura = document.cedenteAbreviatura,
+                    aseguradoAbreviatura = document.aseguradoAbreviatura,
+                    suscriptorAbreviatura = document.suscriptorAbreviatura,
 
-                    origen = document["origen"].AsString,
-                    numero = Convert.ToInt16(document["numero"]),
-                    cantidad = Convert.ToInt16(document["cantidad"]),
+                    
+                    origen = document.origen,
+                    numero = document.numero,
+                    cantidad = document.cantidad,
+                    codigo = document.codigo,
+                    referencia = document.referencia,
 
-                    diasPendientes = Convert.ToInt32(document["diasPendientes"]),
-                    diasVencidos = Convert.ToInt32(document["diasVencidos"]),
+                    diasPendientes = document.diasPendientes,
+                    diasVencidos = document.diasVencidos,
 
-                    fecha = fecha,
-                    fechaEmision = fechaEmision,
-                    fechaVencimiento = fechaVencimiento,
+                    fecha = document.fecha,
+                    fechaEmision = document.fechaEmision,
+                    fechaVencimiento = document.fechaVencimiento,
 
-                    montoCuota = Convert.ToDecimal(document["montoCuota"]),
-                    montoYaPagado = Convert.ToDecimal(document["montoYaPagado"]),
-                    resta = Convert.ToDecimal(document["resta"]),
+                    montoCuota = document.montoCuota,
+                    montoYaPagado = document.montoYaPagado,
+                    resta = document.resta,
 
-                    montoYaCobrado = Convert.ToDecimal(document["montoYaCobrado"]),
+                    montoYaCobrado = document.montoYaCobrado,
                 };
 
                 // calculamos el vencimiento para separar (agrupar) en el reporte de acuerdo a la cantidad de días de 
@@ -231,6 +232,7 @@ namespace scrwebm_net3.reports.consultas.montosPendientesPagoVencimientos
                                                        new ReportParameter("nombreEmpresaSeleccionada", nombreEmpresaSeleccionada),
                                                        new ReportParameter("subTituloReporte", subTituloReporte),
                                                        new ReportParameter("mostrarColores", mostrarColores.ToString()),
+                                                       new ReportParameter("resumen", resumen.ToString()),
                                                        new ReportParameter("fechaPendientesAl", fechaPendientesAl.ToString("dd-MMM-yy")),
                                                        new ReportParameter("fechaLeerHasta", fechaLeerHasta.ToString("dd-MMM-yy"))
                                                    };
